@@ -1,0 +1,9 @@
+﻿Private Sub Workbook_AddinInstall()
+Call Add_Menus
+End Sub
+Private Sub Workbook_AddinUninstall()
+Call delete_menu_function
+End Sub
+Private Sub Workbook_Open()
+Call Add_Menus
+End Sub
