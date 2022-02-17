@@ -6,7 +6,7 @@ Function IsUserFormLoaded(ByVal UFName As String) As Boolean
      
     IsUserFormLoaded = False
     For Each UForm In VBA.UserForms
-        If UForm.Name = UFName Then
+        If UForm.name = UFName Then
             IsUserFormLoaded = True
             Exit For
         End If
@@ -61,7 +61,7 @@ Set list_sht = wb.ActiveSheet
 ' add a summary sheet
 wb.Sheets.Add after:=list_sht
 Set sum_sht = wb.Sheets(list_sht.Index + 1)
-sum_sht.Name = format_sheet_name("Summary", wb)
+sum_sht.name = format_sheet_name("Summary", wb)
 sum_sht.Cells(1, 1) = "From"
 sum_sht.Cells(1, 2) = "To"
 sum_sht.Cells(1, 3) = "Transfer Status"
@@ -129,7 +129,7 @@ Set list_sht = wb.ActiveSheet
 ' add a summary sheet
 wb.Sheets.Add after:=list_sht
 Set sum_sht = wb.Sheets(list_sht.Index + 1)
-sum_sht.Name = format_sheet_name("Summary", wb)
+sum_sht.name = format_sheet_name("Summary", wb)
 
 lr = list_sht.Cells(list_sht.Rows.Count, list_col).End(xlUp).Row
 
@@ -253,7 +253,7 @@ Function BrowseFolder(Title As String, _
     Optional InitialFolder As String = vbNullString, _
     Optional InitialView As Office.MsoFileDialogView = _
         msoFileDialogViewList) As String
-Dim V As Variant
+Dim v As Variant
 Dim InitFolder As String
 With Application.FileDialog(msoFileDialogFolderPicker)
     .Title = Title
@@ -270,12 +270,12 @@ With Application.FileDialog(msoFileDialogFolderPicker)
     .Show
     On Error Resume Next
     Err.Clear
-    V = .SelectedItems(1)
+    v = .SelectedItems(1)
     If Err.Number <> 0 Then
-        V = vbNullString
+        v = vbNullString
     End If
 End With
-BrowseFolder = CStr(V)
+BrowseFolder = CStr(v)
 End Function
 Function RecursiveFolder( _
 FSO As FileSystemObject, _
@@ -307,15 +307,15 @@ End If
 Application.StatusBar = myStatus
 'Loop through each file in the folder
 For Each File In Folder.files
-    ActiveSheet.Cells(NextRow, 1).value = get_UNC(Folder.path) & "\" & File.Name
-    ActiveSheet.Cells(NextRow, 2).value = File.Name
-    ActiveSheet.Cells(NextRow, 3).value = get_extension(File.Name)
+    ActiveSheet.Cells(NextRow, 1).value = get_UNC(Folder.path) & "\" & File.name
+    ActiveSheet.Cells(NextRow, 2).value = File.name
+    ActiveSheet.Cells(NextRow, 3).value = get_extension(File.name)
     ActiveSheet.Cells(NextRow, 4).value = File.Size
     ActiveSheet.Cells(NextRow, 5).value = File.Type
     ActiveSheet.Cells(NextRow, 6).value = File.DateCreated
     ActiveSheet.Cells(NextRow, 7).value = File.DateLastAccessed
     ActiveSheet.Cells(NextRow, 8).value = File.DateLastModified
-    If md5 And File.Name <> "Thumbs.db" Then
+    If md5 And File.name <> "Thumbs.db" Then
         ActiveSheet.Cells(NextRow, 9).value = FileToMD5Hex(File.path)
     End If
     If NextRow Mod 100 = 0 Then

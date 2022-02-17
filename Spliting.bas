@@ -46,7 +46,7 @@ For n = 1 To this_book.Sheets.Count
         .Zoom = this_book.ActiveSheet.PageSetup.Zoom
     End With
     
-    file_name = get_unique_filename(file_path & "\" & this_book.Sheets(n).Name & ".xlsx")
+    file_name = get_unique_filename(file_path & "\" & this_book.Sheets(n).name & ".xlsx")
     
     new_book.SaveAs filename:=file_name
     new_book.Close
@@ -86,7 +86,7 @@ For Each elmt In this_array
     new_sht.Cells(1, 1).PasteSpecial 8
     this_sht.UsedRange.SpecialCells(xlCellTypeVisible).Copy Destination:=new_sht.Cells(1, 1)
     If elmt = "" Then elmt = "Blanks"
-    new_sht.Name = format_sheet_name(CStr(elmt), wb)
+    new_sht.name = format_sheet_name(CStr(elmt), wb)
 Next elmt
 this_sht.ShowAllData
 Application.ScreenUpdating = True

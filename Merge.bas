@@ -88,9 +88,9 @@ Next n
 With to_sht
     ' sort by countif values and the sort data values in book 1
     .Sort.SortFields.Clear
-    .Sort.SortFields.Add Key:=.Columns(col_count + 1), _
+    .Sort.SortFields.Add key:=.Columns(col_count + 1), _
         SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:=xlSortNormal
-    .Sort.SortFields.Add Key:=.Columns(X), _
+    .Sort.SortFields.Add key:=.Columns(X), _
         SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
     .Sort.SetRange .Range(.Cells(1, 1), .Cells(last_row, col_count + 1))
     .Sort.header = xlYes
@@ -101,9 +101,9 @@ With to_sht
     
     ' sort by countif values and the sort data values in book 2
     .Sort.SortFields.Clear
-    .Sort.SortFields.Add Key:=.Columns(col_count + 3), _
+    .Sort.SortFields.Add key:=.Columns(col_count + 3), _
         SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:=xlSortNormal
-    .Sort.SortFields.Add Key:=.Columns(col_count + 3 + Y), _
+    .Sort.SortFields.Add key:=.Columns(col_count + 3 + Y), _
         SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
     .Sort.SetRange .Range(.Cells(1, col_count + 3), .Cells(last_row, .UsedRange.Columns.Count))
     .Sort.header = xlYes
@@ -180,9 +180,9 @@ If IsArray(xl_file_name) Then
     For this_workbook = LBound(xl_file_name) To UBound(xl_file_name) ' iterate through each book
         Application.Workbooks.Open filename:=xl_file_name(this_workbook), ReadOnly:=True, Editable:=True ' open the books
         Set from_book = ActiveWorkbook
-        sht_name = format_sheet_name(from_book.Name, to_book)
+        sht_name = format_sheet_name(from_book.name, to_book)
         
-        to_book.Worksheets.Add(after:=to_book.Worksheets(to_book.Worksheets.Count)).Name = sht_name
+        to_book.Worksheets.Add(after:=to_book.Worksheets(to_book.Worksheets.Count)).name = sht_name
         
         from_book.ActiveSheet.UsedRange.Copy Destination:=to_book.Sheets(to_book.Sheets.Count).Cells(1, 1)
         from_book.ActiveSheet.Rows(1).Copy
@@ -267,7 +267,7 @@ If sht_name = "" Then
 End If
 Do While not_same = False
     For n = 1 To to_book.Sheets.Count
-        If to_book.Sheets(n).Name = sht_name Then
+        If to_book.Sheets(n).name = sht_name Then
             If Right(sht_name, Len(CStr(counter))) = counter Then
                 sht_name = Left(sht_name, Len(sht_name) - Len(CStr(counter)))
             End If
@@ -277,7 +277,7 @@ Do While not_same = False
             End If
             sht_name = sht_name & counter
             
-            Do While to_book.Sheets(n).Name = sht_name
+            Do While to_book.Sheets(n).name = sht_name
                 sht_name = Left(sht_name, Len(sht_name) - Len(CStr(counter)))
                 counter = counter + 1
                 sht_name = sht_name & counter
@@ -287,7 +287,7 @@ Do While not_same = False
         End If
     Next n
     For n = 1 To to_book.Sheets.Count
-        If to_book.Sheets(n).Name = sht_name Then
+        If to_book.Sheets(n).name = sht_name Then
             not_same = False
         End If
     Next n
@@ -485,7 +485,7 @@ With this_sht
     .Columns(this_col).AdvancedFilter Action:=xlFilterCopy, CopyToRange:=.Cells(1, next_col), unique:=True
     row_count = .Cells(.Rows.Count, next_col).End(xlUp).Row
     .Sort.SortFields.Clear
-    .Sort.SortFields.Add Key:=.Range(.Cells(1, next_col), .Cells(row_count, next_col)), _
+    .Sort.SortFields.Add key:=.Range(.Cells(1, next_col), .Cells(row_count, next_col)), _
         SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
         xlSortNormal
     With .Sort

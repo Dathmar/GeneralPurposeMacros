@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} Files_to_EOS 
    Caption         =   "Merge Options"
-   ClientHeight    =   6255
+   ClientHeight    =   5685
    ClientLeft      =   45
    ClientTop       =   375
-   ClientWidth     =   2310
+   ClientWidth     =   10335
    OleObjectBlob   =   "Files_to_EOS.frx":0000
    StartUpPosition =   1  'CenterOwner
 End
@@ -13,7 +13,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
 Option Explicit
 Private Sub active_sheet_Click()
 sht_no.Enabled = False
@@ -48,8 +47,7 @@ Dim cpy_rng As Range
 
 Me.Hide
 
-xl_file_name = Application.GetOpenFilename("Excel files (*.xls; *.xlsx; *.xlsm; *.csv), *.xls; *.xlsx; *.xlsm; *.csv", , _
-    "Browse for file to be merged", MultiSelect:=True)
+xl_file_name = file_manager_guis.list_to_array(list_Files)
 If Not IsArray(xl_file_name) Then
     If xl_file_name = False Then Exit Sub
 End If
@@ -72,7 +70,7 @@ Call delete_extraneous_blank_rows_and_columns(to_sht)
 to_book.Worksheets.Add after:=to_book.Sheets(to_book.Sheets.Count)
 Set rpt_sht = to_book.Sheets(to_book.Sheets.Count)
 rpt_sht.Activate
-rpt_sht.Name = format_sheet_name("Summary", to_book)
+rpt_sht.name = format_sheet_name("Summary", to_book)
 
 ' delete leading blank rows Need to create function to do this.
 Do While Application.WorksheetFunction.CountA(to_sht.Rows(1)) = 0 And to_sht.UsedRange.Rows.Count <> 0 And to_sht.UsedRange.Rows.Count <> 1
@@ -165,7 +163,7 @@ If IsArray(xl_file_name) Then
             'End If
             
             ' Do not merge the sheet you are merging into.
-            If this_sheet = to_sht.Index And to_book.Name = from_book.Name And skip_merge = False Then
+            If this_sheet = to_sht.Index And to_book.name = from_book.name And skip_merge = False Then
                 skip_merge = True
             End If
             
@@ -184,7 +182,7 @@ If IsArray(xl_file_name) Then
     
                     If to_sht.Rows.Count < last_row + .UsedRange.Rows.Count Then
                         rpt_sht.Cells(merge_cnt, 1) = get_filename(CStr(xl_file_name(this_workbook))) ' workbook
-                        rpt_sht.Cells(merge_cnt, 2) = .Name ' worksheet
+                        rpt_sht.Cells(merge_cnt, 2) = .name ' worksheet
                         rpt_sht.Cells(merge_cnt, 3) = "Ran out of rows"
                         rpt_sht.Cells(merge_cnt, 4) = "NA"
                         If Not already_open Then
@@ -223,16 +221,16 @@ If IsArray(xl_file_name) Then
                         cpy_rng.Copy Destination:=to_sht.Cells(last_row, start_column)
                     End If
                     rpt_sht.Cells(merge_cnt, 1) = get_filename(CStr(xl_file_name(this_workbook))) ' workbook
-                    rpt_sht.Cells(merge_cnt, 2) = .Name ' worksheet
+                    rpt_sht.Cells(merge_cnt, 2) = .name ' worksheet
                     rpt_sht.Cells(merge_cnt, 3) = "Merged"
                     rpt_sht.Cells(merge_cnt, 4).NumberFormat = "@"
                     rpt_sht.Cells(merge_cnt, 4) = last_row & "-" & to_sht.UsedRange.Rows.Count
                     
-                    If filename.value Then to_sht.Range(to_sht.Cells(last_row, 1), to_sht.Cells(to_sht.UsedRange.Rows.Count, 1)) = from_book.Name
-                    If sheetname.value Then to_sht.Range(to_sht.Cells(last_row, start_column - 1), to_sht.Cells(to_sht.UsedRange.Rows.Count, start_column - 1)) = .Name
+                    If filename.value Then to_sht.Range(to_sht.Cells(last_row, 1), to_sht.Cells(to_sht.UsedRange.Rows.Count, 1)) = from_book.name
+                    If sheetname.value Then to_sht.Range(to_sht.Cells(last_row, start_column - 1), to_sht.Cells(to_sht.UsedRange.Rows.Count, start_column - 1)) = .name
                 Else
                     rpt_sht.Cells(merge_cnt, 1) = get_filename(CStr(xl_file_name(this_workbook)))
-                    rpt_sht.Cells(merge_cnt, 2) = .Name
+                    rpt_sht.Cells(merge_cnt, 2) = .name
                     rpt_sht.Cells(merge_cnt, 3) = "Sheet Blank"
                     rpt_sht.Cells(merge_cnt, 4) = "NA"
                 End If
@@ -260,4 +258,28 @@ Application.ScreenUpdating = True
 End Sub
 Private Sub spec_sheet_Click()
 sht_no.Enabled = True
+End Sub
+Private Sub add_files_Click()
+Call file_manager_guis.add_files_to_list(list_Files)
+End Sub
+Private Sub clear_list_Click()
+list_Files.Clear
+End Sub
+Private Sub deselect_button_Click()
+Call file_manager_guis.clear_list(list_Files)
+End Sub
+Private Sub remove_button_Click()
+Call file_manager_guis.remove_selected(list_Files)
+End Sub
+Private Sub top_button_Click()
+Call file_manager_guis.move_selected_to_top(list_Files)
+End Sub
+Private Sub bottom_button_Click()
+Call file_manager_guis.move_selected_to_bottom(list_Files)
+End Sub
+Private Sub up_button_Click()
+Call file_manager_guis.move_selected_up(list_Files)
+End Sub
+Private Sub down_button_Click()
+Call file_manager_guis.move_selected_down(list_Files)
 End Sub

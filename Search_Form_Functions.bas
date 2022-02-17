@@ -97,7 +97,7 @@ For Each rCell In ActiveSheet.UsedRange
             End If
             cStart = 1
             With rCell.Characters(cStart, cLen).Font
-                .Name = font_name
+                .name = font_name
                 .Size = font_size
                 .Color = font_color
                 .Bold = font_bold
@@ -118,7 +118,7 @@ For Each rCell In ActiveSheet.UsedRange
         End If
         If do_format = True Then
             With rCell.Characters(cStart, cLen).Font
-                .Name = font_name
+                .name = font_name
                 .Size = font_size
                 .Color = font_color
                 .Bold = font_bold

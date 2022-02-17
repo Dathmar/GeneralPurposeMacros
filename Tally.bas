@@ -83,7 +83,7 @@ If CStr(user_input) = "" Or IsNumeric(user_input) = False Then Exit Sub
 
 For n = 1 To user_input
     Sheets.Add after:=Sheets(ActiveWorkbook.Sheets.Count)
-    ActiveSheet.Name = format_sheet_name(cur_sht.Name, ActiveWorkbook)
+    ActiveSheet.name = format_sheet_name(cur_sht.name, ActiveWorkbook)
     cur_sht.UsedRange.Copy Destination:=ActiveSheet.Cells(1, 1)
     cur_sht.UsedRange.Copy
     ActiveSheet.Cells(1, 1).PasteSpecial 8
@@ -136,7 +136,7 @@ If IsArray(xl_file_name) Then
         Application.Workbooks.Open filename:=xl_file_name(this_workbook), UpdateLinks:=False
         Set this_book = ActiveWorkbook
         If ActiveWorkbook.Sheets.Count < user_input Then
-            MsgBox this_book.Name & " does not have " & user_input & " sheets."
+            MsgBox this_book.name & " does not have " & user_input & " sheets."
         Else
             this_book.Sheets(CInt(user_input)).Select
             this_book.Save

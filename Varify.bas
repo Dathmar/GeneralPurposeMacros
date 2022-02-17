@@ -4,14 +4,14 @@ Function is_workbook_open(ByVal wrk_name As String) As Boolean
 Dim n As Long
 is_workbook_open = False
 For n = 1 To Application.Workbooks.Count
-    If Workbooks(n).Name = wrk_name Then
+    If Workbooks(n).name = wrk_name Then
         is_workbook_open = True
         Exit Function
     End If
 Next n
 
 End Function
-Function is_not_saved(ByRef OWB As Workbook) As Boolean
+Function is_not_saved(ByRef oWb As Workbook) As Boolean
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''                                This Macro was written by                                '''
@@ -20,11 +20,11 @@ Function is_not_saved(ByRef OWB As Workbook) As Boolean
 '''The purpose is to check if the opened file has been saved recently.                      '''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-If OWB.Saved = False Then
+If oWb.Saved = False Then
     is_not_saved = True
 End If
 End Function
-Function is_never_saved(ByRef OWB As Workbook) As Boolean
+Function is_never_saved(ByRef oWb As Workbook) As Boolean
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''                                This Macro was written by                                '''
@@ -33,7 +33,7 @@ Function is_never_saved(ByRef OWB As Workbook) As Boolean
 '''The purpose is to check if the opened file has ever been saved.                          '''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-If OWB.path = "" Then
+If oWb.path = "" Then
 is_never_saved = True
 End If
 End Function

@@ -106,13 +106,13 @@ For n = from_sht To to_sht
         this_sht.Cells(1, 1).PasteSpecial xlPasteColumnWidths
     End If
     If Not whole_book Then
-        to_bk.SaveAs filename:=folder_path & "\" & get_unique_filename(this_sht.Name & ".xlsx"), FileFormat:=xlOpenXMLWorkbook
+        to_bk.SaveAs filename:=folder_path & "\" & get_unique_filename(this_sht.name & ".xlsx"), FileFormat:=xlOpenXMLWorkbook
     End If
     
 Next n
 
 If whole_book Then
-    save_name = wb.Name
+    save_name = wb.name
     to_bk.SaveAs filename:=folder_path & "\" & get_unique_filename(save_name), FileFormat:=wb.FileFormat
 End If
 Application.CutCopyMode = False

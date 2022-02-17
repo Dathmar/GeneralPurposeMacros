@@ -94,7 +94,7 @@ While start_row < lr
     this_sht.Rows(1).Copy Destination:=new_sht.Rows(1)
     this_sht.Range(this_sht.Rows(start_row).EntireRow, this_sht.Rows(end_row).EntireRow).Copy Destination:=new_sht.Rows(2)
     
-    save_path = file_path & "/" & get_name_without_extension(wb.Name) & "_" & this_sht.Name & "_Rows_" & start_row & "-" & end_row & ".xlsx"
+    save_path = file_path & "/" & get_name_without_extension(wb.name) & "_" & this_sht.name & "_Rows_" & start_row & "-" & end_row & ".xlsx"
     
     new_book.SaveAs filename:=save_path, FileFormat:=xlOpenXMLWorkbook
     new_book.Close SaveChanges:=False
@@ -111,7 +111,7 @@ Private Function find_sht_index(sht_indentifier As String) As Long
 Dim n As Integer
 
 For n = 1 To wb.Sheets.Count
-    If wb.Sheets(n).Name = sht_indentifier Then
+    If wb.Sheets(n).name = sht_indentifier Then
         find_sht_index = n
         Exit Function
     End If

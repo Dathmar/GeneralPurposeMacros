@@ -5,5 +5,11 @@ Private Sub Workbook_AddinUninstall()
 Call delete_menu_function
 End Sub
 Private Sub Workbook_Open()
-Call Add_Menus
+If GetSetting(ADDINNAME, "Settings", "InstallStatus", "") = "" Then
+    Application.OnTime Now, "'" & ThisWorkbook.FullName & "'!CheckInstall"
+    Application.OnTime Now, "'" & ThisWorkbook.FullName & "'!AutoUpdate"
+Else
+    Application.OnTime Now, "'" & ThisWorkbook.FullName & "'!FinishInstall"
+    Application.OnTime Now, "'" & ThisWorkbook.FullName & "'!AutoUpdate"
+End If
 End Sub

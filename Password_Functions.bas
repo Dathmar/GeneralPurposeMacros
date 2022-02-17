@@ -107,7 +107,7 @@ If IsArray(xl_file_name) Then
         Set this_book = ActiveWorkbook
         sht_count = this_book.Sheets.Count
         For n = 1 To sht_count
-            report_book.Sheets(1).Cells(this_workbook, 1) = this_book.Name
+            report_book.Sheets(1).Cells(this_workbook, 1) = this_book.name
             report_book.Sheets(1).Cells(this_workbook, n + 1) = try_passwords(this_book.Sheets(n), passwords)
         Next n
         this_book.Save

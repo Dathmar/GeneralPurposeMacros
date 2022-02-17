@@ -80,9 +80,8 @@ tip_list = Array("Delete_Unselected_Columns - Delete all columns that do not hav
 
 'Delete any existing menu. We must use On Error Resume next _
 in case it does not exist.
-On Error Resume Next
 Run delete_menu_function()
-On Error GoTo 0
+
 'Set a CommandBar variable to Worksheet menu bar
 Set cb_main_menu_bar = Application.CommandBars("Worksheet Menu Bar")
 
